@@ -13,7 +13,7 @@ export interface EditableNodeProps extends NodeProps<CustomNodeData> {
   onDelete: () => void;
 }
 
-const EditableNode: React.FC<EditableNodeProps> = ({ data, id, isEditing, onStartEdit, onSaveEdit, onDelete }) => {
+const EditableNode: React.FC<EditableNodeProps> = ({ id, data, isEditing, onStartEdit, onSaveEdit, onDelete }) => {
   const [editedData, setEditedData] = useState(data);
 
   useEffect(() => {
