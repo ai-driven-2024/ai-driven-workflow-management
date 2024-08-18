@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getConnection } from '@/utils/db';
 import { ResultSetHeader } from 'mysql2'; // 追加: ResultSetHeader をインポート

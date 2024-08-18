@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { fetchTasks, createTask } from '../../../utils/db';
 

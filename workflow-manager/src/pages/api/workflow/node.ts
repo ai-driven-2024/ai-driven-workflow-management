@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getConnection } from '@/utils/db';
 
