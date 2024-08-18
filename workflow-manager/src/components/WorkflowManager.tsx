@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import WorkflowCanvas from './WorkflowCanvas';
 import useWorkflowData from '../hooks/useWorkflowData';
 
+
 const WorkflowManager: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -34,6 +35,7 @@ const WorkflowManager: React.FC = () => {
   }
 
   return (
+    
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       {/* 「新しい業務を追加」ボタン */}
       <button
@@ -67,6 +69,7 @@ const WorkflowManager: React.FC = () => {
         onDeleteNode={deleteNode}
       />
     </div>
+
   );
 };
 

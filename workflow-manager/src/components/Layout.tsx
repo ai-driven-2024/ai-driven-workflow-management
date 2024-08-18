@@ -19,18 +19,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/workflow" className="hover:bg-gray-700 p-2 rounded block">
+              <Link href="/tasks" className="hover:bg-gray-700 p-2 rounded block">
+                業務一覧管理
+              </Link>
+            </li>
+            <li className="mb-2">
+              <Link href="/workflow/1" className="hover:bg-gray-700 p-2 rounded block">
                 ワークフロー
               </Link>
             </li>
             <li className="mb-2">
               <Link href="/settings" className="hover:bg-gray-700 p-2 rounded block">
                 設定
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link href="/tasks" className="hover:bg-gray-700 p-2 rounded block">
-                業務一覧管理
               </Link>
             </li>
           </ul>

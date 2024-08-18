@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import Layout from '@/components/Layout';
 
 const WorkflowManager = dynamic(() => import('../../components/WorkflowManager'), { ssr: false });
 
@@ -28,12 +29,14 @@ const WorkflowPage: React.FC = () => {
   }
 
   return (
+    <Layout>
     <div className="w-full h-screen p-4 bg-gray-100">
       <h1 className="text-3xl text-gray-800 font-bold mb-4">業務ID: {taskId} のワークフロー</h1>
       <div className="w-full h-full bg-white shadow-lg rounded-lg">
-        <WorkflowManager taskId={taskId} />
+        <WorkflowManager />
       </div>
     </div>
+    </Layout>
   );
 };
 
