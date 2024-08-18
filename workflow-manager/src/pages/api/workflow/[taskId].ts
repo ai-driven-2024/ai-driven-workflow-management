@@ -2,9 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { fetchWorkflowData } from '@/utils/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'GET') {
-    const { taskId } = req.query;
+  const { taskId } = req.query;
 
+  if (req.method === 'GET') {
     if (!taskId || typeof taskId !== 'string') {
       return res.status(400).json({ message: 'Invalid or missing taskId' });
     }

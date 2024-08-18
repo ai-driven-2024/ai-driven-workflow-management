@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NodeProps, Handle, Position } from 'reactflow';
+import { FaTrash } from 'react-icons/fa';
 
 interface CustomNodeData {
   department: string;
   task_name: string;
+  task_id: string;
 }
 
 export interface EditableNodeProps extends NodeProps<CustomNodeData> {
@@ -13,46 +15,70 @@ export interface EditableNodeProps extends NodeProps<CustomNodeData> {
   onDelete: () => void;
 }
 
-const EditableNode: React.FC<EditableNodeProps> = ({ id, data, isEditing, onStartEdit, onSaveEdit, onDelete }) => {
-  const [editedData, setEditedData] = useState(data);
-
-  useEffect(() => {
-    setEditedData(data);
-  }, [data]);
+const EditableNode: React.FC<EditableNodeProps> = ({
+  id,
+  data,
+  isEditing,
+  onStartEdit,
+  onSaveEdit,
+  onDelete,
+}) => {
+  const [editData, setEditData] = useState(data);
 
   const handleSave = () => {
-    onSaveEdit(id, editedData);
+    onSaveEdit(id, editData); // 編集内容を保存
   };
 
-  if (isEditing) {
-    return (
-      <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-blue-500">
-        <Handle type="target" position={Position.Left} />
-        <input
-          className="font-bold text-lg text-gray-800 w-full mb-2"
-          value={editedData.department}
-          onChange={(e) => setEditedData({ ...editedData, department: e.target.value })}
-        />
-        <input
-          className="text-sm text-gray-600 w-full"
-          value={editedData.task_name}
-          onChange={(e) => setEditedData({ ...editedData, task_name: e.target.value })}
-        />
-        <button className="mt-2 px-2 py-1 bg-blue-500 text-white rounded" onClick={handleSave}>
-          Save
-        </button>
-        <Handle type="source" position={Position.Right} />
-      </div>
-    );
-  }
+  const handleDeleteClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    onDelete();
+  };
 
   return (
-    <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-gray-300" onDoubleClick={onStartEdit}>
+    <div
+      className="relative px-4 py-2 shadow-md rounded-md bg-white border-2"
+      onDoubleClick={onStartEdit} // ダブルクリックで編集モードに切り替え
+    >
       <Handle type="target" position={Position.Left} />
-      <div className="font-bold text-gray-700">{data.department}</div>
-      <div className="text-sm text-gray-800">{data.task_name}</div>
-      <button className="mt-2 px-2 py-1 bg-red-500 text-white rounded" onClick={onDelete}>
-        Delete
+      {isEditing ? (
+        <div>
+          <input
+            className="font-bold text-lg text-gray-800 w-full mb-2"
+            value={editData.department}
+            onChange={(e) =>
+              setEditData({ ...editData, department: e.target.value })
+            }
+          />
+          <input
+            className="text-sm text-gray-600 w-full"
+            value={editData.task_name}
+            onChange={(e) =>
+              setEditData({ ...editData, task_name: e.target.value })
+            }
+          />
+          <button
+            className="mt-2 px-2 py-1 bg-blue-500 text-white rounded"
+            onClick={handleSave}
+          >
+            Save
+          </button>
+        </div>
+      ) : (
+        <div>
+          <div className="font-bold text-gray-700 pr-6">
+            {data.department}
+          </div>
+          <div className="text-sm text-gray-800 pr-6">
+            {data.task_name}
+          </div>
+        </div>
+      )}
+      <button
+        className="absolute top-1 right-1 p-0.5 bg-transparent text-gray-500 rounded z-10"
+        onClick={handleDeleteClick}
+        title="Delete Node"
+      >
+        <FaTrash style={{ width: 20, height: 20 }} />
       </button>
       <Handle type="source" position={Position.Right} />
     </div>
